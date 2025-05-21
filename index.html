@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Cognitive Theory - Albert Bandura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .infographic {
+            width: 900px;
+            height: 900px;
+            position: relative;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Center element */
+        .center {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .center-bg {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E3A8A;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #4B5563;
+            margin-top: 5px;
+        }
+        
+        .bandura-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1E3A8A;
+            background-color: #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1E3A8A;
+            font-size: 12px;
+        }
+        
+        /* Feature boxes */
+        .feature-box {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-box h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .feature-box p {
+            font-size: 14px;
+            color: #4B5563;
+            line-height: 1.4;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: white;
+            font-size: 20px;
+        }
+        
+        /* Positions for feature boxes */
+        .intentionality {
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 5px solid #0D9488;
+        }
+        
+        .intentionality .feature-icon {
+            background-color: #0D9488;
+        }
+        
+        .forethought {
+            top: 50%;
+            right: 100px;
+            transform: translateY(-50%);
+            border-top: 5px solid #7E22CE;
+        }
+        
+        .forethought .feature-icon {
+            background-color: #7E22CE;
+        }
+        
+        .self-reactiveness {
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 5px solid #EA580C;
+        }
+        
+        .self-reactiveness .feature-icon {
+            background-color: #EA580C;
+        }
+        
+        .self-reflectiveness {
+            top: 50%;
+            left: 100px;
+            transform: translateY(-50%);
+            border-top: 5px solid #16A34A;
+        }
+        
+        .self-reflectiveness .feature-icon {
+            background-color: #16A34A;
+        }
+        
+        /* Modes of agency */
+        .modes-container {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1;
+        }
+        
+        .mode {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .mode:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mode h4 {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #1E3A8A;
+        }
+        
+        .mode-icon {
+            font-size: 24px;
+            color: #1E3A8A;
+        }
+        
+        /* Example popup styles */
+        .example-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .example-content {
+            width: 350px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+        
+        .example-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .example-popup.active .example-content {
+            transform: scale(1);
+        }
+        
+        .example-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .example-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .example-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .example-description {
+            font-size: 15px;
+            color: #4B5563;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .example-image {
+            width: 100%;
+            height: 150px;
+            background-color: #E5E7EB;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+            font-size: 14px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #4B5563;
+            border: none;
+        }
+        
+        /* Connection lines */
+        .connection-line {
+            position: absolute;
+            background-color: #E5E7EB;
+            z-index: 0;
+        }
+        
+        .line-top {
+            width: 4px;
+            height: 80px;
+            top: 220px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .line-right {
+            width: 80px;
+            height: 4px;
+            top: 50%;
+            right: 220px;
+            transform: translateY(-50%);
+        }
+        
+        .line-bottom {
+            width: 4px;
+            height: 80px;
+            bottom: 220px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .line-left {
+            width: 80px;
+            height: 4px;
+            top: 50%;
+            left: 220px;
+            transform: translateY(-50%);
+        }
+        
+        /* Modes connection lines */
+        .modes-connection {
+            position: absolute;
+            width: 240px;
+            height: 4px;
+            background-color: #E5E7EB;
+            bottom: 98px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 950px) {
+            .infographic {
+                width: 100%;
+                height: auto;
+                min-height: 900px;
+                padding-bottom: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .feature-box {
+                width: 150px;
+                height: 150px;
+                padding: 10px;
+            }
+            
+            .intentionality {
+                top: 80px;
+            }
+            
+            .forethought {
+                right: 80px;
+            }
+            
+            .self-reactiveness {
+                bottom: 230px;
+            }
+            
+            .self-reflectiveness {
+                left: 80px;
+            }
+            
+            .modes-container {
+                bottom: 100px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mode {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .modes-connection {
+                display: none;
+            }
+            
+            .line-top, .line-right, .line-bottom, .line-left {
+                width: 3px;
+                height: 60px;
+            }
+            
+            .line-right, .line-left {
+                width: 60px;
+                height: 3px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .center {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .feature-box {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .feature-box p {
+                font-size: 12px;
+            }
+            
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .intentionality {
+                top: 60px;
+            }
+            
+            .forethought {
+                right: 60px;
+            }
+            
+            .self-reactiveness {
+                bottom: 250px;
+            }
+            
+            .self-reflectiveness {
+                left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic">
+        <!-- Connection lines -->
+        <div class="connection-line line-top"></div>
+        <div class="connection-line line-right"></div>
+        <div class="connection-line line-bottom"></div>
+        <div class="connection-line line-left"></div>
+        <div class="modes-connection"></div>
+        
+        <!-- Center element -->
+        <div class="center-bg"></div>
+        <div class="center">
+            <h1 class="title">SOCIAL COGNITIVE THEORY</h1>
+            <div class="bandura-img">Bandura</div>
+            <p class="subtitle">Albert Bandura</p>
+        </div>
+        
+        <!-- Feature boxes -->
+        <div class="feature-box intentionality" onclick="showExample('intentionality')">
+            <div class="feature-icon">🎯</div>
+            <h3>Intentionality</h3>
+            <p>People form intentions and act with purpose.</p>
+        </div>
+        
+        <div class="feature-box forethought" onclick="showExample('forethought')">
+            <div class="feature-icon">🔮</div>
+            <h3>Forethought</h3>
+            <p>They anticipate the outcomes of actions and plan accordingly.</p>
+        </div>
+        
+        <div class="feature-box self-reactiveness" onclick="showExample('self-reactiveness')">
+            <div class="feature-icon">⚙️</div>
+            <h3>Self-Reactiveness</h3>
+            <p>They regulate motivation and behavior to achieve goals.</p>
+        </div>
+        
+        <div class="feature-box self-reflectiveness" onclick="showExample('self-reflectiveness')">
+            <div class="feature-icon">🔍</div>
+            <h3>Self-Reflectiveness</h3>
+            <p>They reflect on their abilities, beliefs, and actions.</p>
+        </div>
+        
+        <!-- Modes of agency -->
+        <div class="modes-container">
+            <div class="mode" onclick="showExample('personal')">
+                <div class="mode-icon">👤</div>
+                <h4>Personal</h4>
+            </div>
+            
+            <div class="mode" onclick="showExample('proxy')">
+                <div class="mode-icon">👥</div>
+                <h4>Proxy</h4>
+            </div>
+            
+            <div class="mode" onclick="showExample('collective')">
+                <div class="mode-icon">👨‍👩‍👧‍👦</div>
+                <h4>Collective</h4>
+            </div>
+        </div>
+        
+        <!-- Example popups -->
+        <div class="example-popup" id="forethought-popup">
+            <div class="example-content">
+                <button class="close-btn" onclick="hideExample('forethought')">✕</button>
+                <div class="example-header">
+                    <div class="example-icon" style="background-color: #7E22CE;">🔮</div>
+                    <h3 class="example-title">Forethought Example</h3>
+                </div>
+                <p class="example-description">Using a habit-tracking app to set and plan goals.</p>
+                <div class="example-image">
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="20" fill="#7E22CE" fill-opacity="0.1"/>
+                        <rect x="20" y="25" width="60" height="10" rx="2" fill="#7E22CE" fill-opacity="0.3"/>
+                        <rect x="20" y="40" width="60" height="10" rx="2" fill="#7E22CE" fill-opacity="0.5"/>
+                        <rect x="20" y="55" width="60" height="10" rx="2" fill="#7E22CE" fill-opacity="0.7"/>
+                        <rect x="20" y="70" width="30" height="10" rx="2" fill="#7E22CE"/>
+                        <circle cx="70" cy="30" r="5" fill="#7E22CE"/>
+                        <circle cx="70" cy="45" r="5" fill="#7E22CE"/>
+                        <path d="M70 60L65 55L75 55L70 60Z" fill="#7E22CE"/>
+                    </svg>
+                    <span style="margin-left: 10px;">Habit tracking app</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-popup" id="self-reactiveness-popup">
+            <div class="example-content">
+                <button class="close-btn" onclick="hideExample('self-reactiveness')">✕</button>
+                <div class="example-header">
+                    <div class="example-icon" style="background-color: #EA580C;">⚙️</div>
+                    <h3 class="example-title">Self-Reactiveness Example</h3>
+                </div>
+                <p class="example-description">Setting smartphone reminders to prompt behavior aligned with goals.</p>
+                <div class="example-image">
+                    <svg width="100" height="150" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="10" width="60" height="120" rx="10" stroke="#EA580C" stroke-width="2"/>
+                        <rect x="25" y="20" width="50" height="80" rx="2" fill="#EA580C" fill-opacity="0.1"/>
+                        <rect x="30" y="30" width="40" height="10" rx="2" fill="#EA580C" fill-opacity="0.7"/>
+                        <rect x="30" y="45" width="40" height="5" rx="1" fill="#EA580C" fill-opacity="0.5"/>
+                        <rect x="30" y="55" width="40" height="5" rx="1" fill="#EA580C" fill-opacity="0.5"/>
+                        <rect x="30" y="65" width="40" height="5" rx="1" fill="#EA580C" fill-opacity="0.5"/>
+                        <circle cx="50" cy="115" r="8" stroke="#EA580C" stroke-width="2"/>
+                    </svg>
+                    <span style="margin-left: 10px;">Smartphone reminder</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-popup" id="proxy-popup">
+            <div class="example-content">
+                <button class="close-btn" onclick="hideExample('proxy')">✕</button>
+                <div class="example-header">
+                    <div class="example-icon" style="background-color: #1E3A8A;">👥</div>
+                    <h3 class="example-title">Proxy Agency Example</h3>
+                </div>
+                <p class="example-description">Asking a tutor via a learning app to explain a concept on your behalf.</p>
+                <div class="example-image">
+                    <svg width="150" height="100" viewBox="0 0 150 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="60" height="80" rx="5" stroke="#1E3A8A" stroke-width="2"/>
+                        <circle cx="40" cy="30" r="10" fill="#1E3A8A" fill-opacity="0.7"/>
+                        <rect x="20" y="50" width="40" height="5" rx="1" fill="#1E3A8A" fill-opacity="0.5"/>
+                        <rect x="20" y="60" width="40" height="5" rx="1" fill="#1E3A8A" fill-opacity="0.5"/>
+                        <rect x="20" y="70" width="20" height="10" rx="2" fill="#1E3A8A"/>
+                        <rect x="80" y="10" width="60" height="80" rx="5" stroke="#1E3A8A" stroke-width="2"/>
+                        <circle cx="110" cy="30" r="10" stroke="#1E3A8A" stroke-width="2"/>
+                        <path d="M95 55L125 55" stroke="#1E3A8A" stroke-width="2"/>
+                        <path d="M95 65L115 65" stroke="#1E3A8A" stroke-width="2"/>
+                        <path d="M95 75L105 75" stroke="#1E3A8A" stroke-width="2"/>
+                        <path d="M70 50L90 30" stroke="#1E3A8A" stroke-width="2" stroke-dasharray="4 4"/>
+                    </svg>
+                    <span style="margin-left: 10px;">Learning app with tutor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showExample(type) {
+            if (type === 'forethought') {
+                document.getElementById('forethought-popup').classList.add('active');
+            } else if (type === 'self-reactiveness') {
+                document.getElementById('self-reactiveness-popup').classList.add('active');
+            } else if (type === 'proxy') {
+                document.getElementById('proxy-popup').classList.add('active');
+            }
+        }
+        
+        function hideExample(type) {
+            if (type === 'forethought') {
+                document.getElementById('forethought-popup').classList.remove('active');
+            } else if (type === 'self-reactiveness') {
+                document.getElementById('self-reactiveness-popup').classList.remove('active');
+            } else if (type === 'proxy') {
+                document.getElementById('proxy-popup').classList.remove('active');
+            }
+        }
+    </script>
+</body>
